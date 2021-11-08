@@ -28,35 +28,33 @@
       3). 状态只能改变一次
   -->
   <script>
-    //1) 创建promise对象(pending状态), 指定执行器函数
-    const p = new Promise((resolve,reject) => {
-        //2) 在执行器函数中启动异步任务
+    // 1) 创建promise对象(pending状态), 指定执行器函数
+    const p = new Promise((resolve, reject) => { // 同步执行的执行器函数
+        // 2) 在执行器函数中启动异步任务
         setTimeout(() => {
-            const time = new Date().getTime()
-            //3) 根据结果做不同处理
-            if(time%2 == 1){//时间戳为偶数就成功
-                //3.1) 如果成功了, 调用resolve(), 指定成功的value, 变为resolved状态
-                resolve('成功')
-                console.log(time)
-            }else{//奇数为失败
-                //3.2) 如果失败了, 调用reject(), 指定失败的reason, 变为rejected状态
-                reject('失败')
-                console.log(time)
+            // 3) 根据结果做不同处理
+            const time = Date.now()
+            //     3.1) 如果成功了, 调用resolve(), 指定成功的value, 变为resolved状态
+            if (time %2== 1) {
+                resolve('成功的数据 ' + time)
+                console.log('resolve()之后')
+            } else {//     3.2) 如果失败了, 调用reject(), 指定失败的reason, 变为rejected状态
+                reject('失败的数据 ' + time )
             }
+            
         }, 1000);
+       
     })
     
-    //4) 用promise指定成功或失败的回调函数来获取成功的vlaue或失败的reason
+    // 4) 能promise指定成功或失败的回调函数来获取成功的vlaue或失败的reason
     p.then(
         value => {
-            console.log(value)
+            console.log('成功', value)
         },
-        reson => {
-            console.log(reson)
+        reason => {
+            console.log('失败', reason)
         }
     )
-
-
   </script>
 </body>
 </html>
